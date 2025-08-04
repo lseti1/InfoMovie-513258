@@ -9,4 +9,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('angularApp');
+  count = signal(0);
+
+  increment() {
+    this.count.set(this.count() + 1);
+  }
 }
