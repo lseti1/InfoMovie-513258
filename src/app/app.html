@@ -1,13 +1,10 @@
 <div class="bg-black text-white">
   <div class="h-screen w-[60%]  mx-auto flex flex-col justify-start items-center">
-    <div class="flex flex-col justify-center items-center w-full py-2">
+    <div class="flex flex-row justify-between items-center w-full py-2">
       <h1 class="text-2xl py-5">Movie App</h1>
       <input type="text" class="text-lg w-[50%] border border-gray-700 bg-gray-900 px-2" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Search movie..."/>
+      <img src="/src/assets/logo.png" alt="Logo" />
     </div>
-    <!-- <div  class="w-full max-w-md bg-gray-900 p-4 shadow mb-4">
-      
-      <p class="text-sm text-gray-700">{{ movie.overview }}</p>
-    </div> -->
     <div class="flex flex-row flex-wrap w-full">
       <div *ngFor="let movie of movies" class="w-1/4 p-1">
         <div class="flex flex-row justify-between bg-gray-900  border border-gray-700 p-1 rounded gap-1 w-full">
