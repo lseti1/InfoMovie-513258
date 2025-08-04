@@ -28,4 +28,21 @@ export class Tmdb {
       }
     });
   }
+
+  getTopRated(page = '1'): Observable<any> {
+    return this.http.get(`${BASE_URL}/movie/top_rated`, {
+      params: { 
+        api_key: API_KEY, 
+        page 
+      }
+    });
+  }
+
+  getTrendingMovies(timeWindow: 'day' | 'week' = 'day'): Observable<any> {
+    return this.http.get(`${BASE_URL}/trending/movie/${timeWindow}`, {
+      params: { 
+        api_key: API_KEY 
+      }
+    });
+  }
 }

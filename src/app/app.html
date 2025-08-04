@@ -1,20 +1,53 @@
 <div class="bg-black text-white">
-  <div class="h-screen w-[60%]  mx-auto flex flex-col justify-start items-center">
-    <div class="flex flex-row justify-between items-center w-full py-2">
-      <h1 class="text-2xl py-5">Movie App</h1>
-      <input type="text" class="text-lg w-[50%] border border-gray-700 bg-gray-900 px-2" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Search movie..."/>
+  <div class="h-screen w-[70%]  mx-auto flex flex-col justify-start items-center gap-4">
+    <div class="flex flex-row justify-between items-center w-full py-5 px-2 border-b-2 border-gray-700">
+      <h1 class="text-2xl p-2 font-light cursor-pointer select-none rounded hover:bg-gray-900 duration-500" (click)="resetSearch()">Movie App</h1>
+      <input type="text" class="text-lg w-[50%] border border-gray-700 bg-gray-900 py-2 px-2 rounded" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Search movie..."/>
       <img src="/src/assets/logo.png" alt="Logo" />
     </div>
-    <div class="flex flex-row flex-wrap w-full">
+    <div *ngIf="hasSearched" class="flex flex-row flex-wrap w-full">
       <div *ngFor="let movie of movies" class="w-1/4 p-1">
-        <div class="flex flex-row justify-between bg-gray-900  border border-gray-700 p-1 rounded gap-1 w-full">
-          <div class="flex justify-center items-start flex-shrink-0 w-20 h-28 overflow-hidden bg-white">
-            <img [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path" alt="{{ movie.title }}" class="w-full h-full object-cover"/>
+        <div class="flex flex-row justify-between bg-gray-900 border border-gray-700 p-1 rounded gap-1 w-full h-full">
+          <div class="flex justify-center items-center flex-shrink-0 w-24 overflow-hidden rounded border border-gray-700">
+            <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="w-full h-full object-cover"/>
           </div>
-          <div class="flex flex-col justify-between items-end">
-            <h2 class="text-sm font-semibold text-right">{{ movie.title }}</h2>
+          <div class="flex flex-col justify-between items-end gap-4 p-2">
+            <h2 class="text-sm font-semibold text-right ">{{ movie.title }}</h2>
             <button class="text-sm bg-gray-800 border border-yellow-700 py-1 px-2 rounded hover:bg-gray-900">View</button>
           </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!hasSearched && trending.length > 0" class="font-light flex flex-row w-full gap-5">
+      <div class="w-[70%]">
+        <h1 class="text-2xl py-2">Trending Films</h1>
+        <div class="flex flex-row gap-1">
+          <div *ngFor="let movie of trending | slice:0:4" class="flex flex-col justify-start items-center bg-gray-900 rounded w-1/4 gap-1">
+            <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="w-full h-64 object-cover rounded-t"/>
+            <p>Rating: {{ movie.vote_average | number: '1.1-1' }}</p>
+            <h1 class="text-xl p-2 text-center">{{ movie.title }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="w-[30%]">
+        <h1 class="text-2xl py-2 text-right">Upcoming Films</h1>
+        <div class="flex flex-col">
+          <div class="flex flex-col items-end gap-2">
+            <p class="bg-gray-900 border border-gray-800 w-full text-right">Upcoming 1</p>
+            <p class="bg-gray-900 border border-gray-800 w-full text-right">Upcoming 1</p>
+            <p class="bg-gray-900 border border-gray-800 w-full text-right">Upcoming 1</p>
+            <p class="bg-gray-900 border border-gray-800 w-full text-right">Upcoming 1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!hasSearched && topRated.length > 0" class="font-light w-full">
+      <h1 class="text-2xl py-2">Top Rated</h1>
+      <div class="flex flex-row gap-1">
+        <div *ngFor="let movie of topRated | slice:0:6" class="flex flex-col justify-start items-center bg-gray-900 rounded w-1/3 gap-1">
+          <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="w-full h-64 object-cover rounded-t"/>
+          <p>Rating: {{ movie.vote_average | number: '1.1-1' }}</p>
+          <h1 class="text-xl p-2 text-center">{{ movie.title }}</h1>
         </div>
       </div>
     </div>

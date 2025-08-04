@@ -13,15 +13,37 @@ import { FormsModule } from '@angular/forms';
 export class App {
   protected readonly title = signal('angularApp');
 
+  hasSearched = false;
   movies: any[] = [];
   query = '';
+
+  trending: any[] = [];
+  topRated: any[] = [];
 
   constructor(private tmdb: Tmdb) {}
 
   search() {
     if (!this.query.trim()) return;
+
+    this.hasSearched = true;
     this.tmdb.searchMovies(this.query).subscribe((response) => {
       this.movies = response.results;
     })
+  }
+
+  resetSearch() {
+    this.hasSearched = false;
+    this.query = '';
+    this.movies = [];
+  }
+
+  ngOnInit(): void {
+    this.tmdb.getTrendingMovies().subscribe(data => {
+      this.trending = data.results;
+    });
+
+    this.tmdb.getTopRated().subscribe(data => {
+      this.topRated = data.results;
+    });
   }
 }
