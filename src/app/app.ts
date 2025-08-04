@@ -20,6 +20,8 @@ export class App {
   trending: any[] = [];
   topRated: any[] = [];
 
+  upcoming: any[] = [];
+
   constructor(private tmdb: Tmdb) {}
 
   search() {
@@ -44,6 +46,10 @@ export class App {
 
     this.tmdb.getTopRated().subscribe(data => {
       this.topRated = data.results;
+    });
+
+    this.tmdb.getUpcomingMovies().subscribe(data => {
+      this.upcoming = data.results;
     });
   }
 }

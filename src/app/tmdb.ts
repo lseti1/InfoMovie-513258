@@ -45,4 +45,12 @@ export class Tmdb {
       }
     });
   }
+
+  getUpcomingMovies(page = '1'): Observable<any> {
+  return this.http.get(`${BASE_URL}/movie/upcoming`, {
+    params: {
+      api_key: API_KEY,
+    }
+  });
+}
 }
