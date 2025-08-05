@@ -1,5 +1,5 @@
 Angular Web App (04/08/25)
-# (Placeholder App Name)
+# (InfoMovie)
 This is an Angular web app that utilises Tailwind CSS & tmdb's free API to quickly get information about movies.
 
 ## Installation
