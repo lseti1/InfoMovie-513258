@@ -22,7 +22,7 @@ export class App {
 
   upcoming: any[] = [];
 
-  constructor(private tmdb: Tmdb) {}
+  constructor(private tmdb: Tmdb) { }
 
   search() {
     if (!this.query.trim()) return;
@@ -53,3 +53,4 @@ export class App {
     });
   }
 }
+
