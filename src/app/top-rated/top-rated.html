@@ -1,0 +1,14 @@
+<h1 class="text-3xl h-[10%] font-semibold">Top Rated</h1>
+    <div class="grid grid-cols-8 gap-1 h-[90%] w-full">
+    <div *ngFor="let movie of topRated | slice:0:8" class="flex flex-col justify-start items-center bg-gray-900 rounded gap-1 h-full">
+        <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="h-[75%] w-full rounded-t"/>
+        <div class="flex flex-col h-[25%] justify-start ">
+        <p class="flex flex-row justify-center items-center gap-2">
+            <svg class="w-5 h-5" fill="orange" viewBox="0 0 24 24">
+            <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.172L12 18.896l-7.334 3.856 1.4-8.172L.132 9.21l8.2-1.192z" />
+            </svg>
+            {{movie.vote_average | number: '1.1-1' }}</p>
+        <h1 class="text-xl text-center">{{ movie.title }}</h1>
+        </div>
+    </div>
+</div>

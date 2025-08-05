@@ -1,93 +1,14 @@
 <div class="bg-black text-white h-screen tracking-tighter">
   <div class="relative h-full w-[70%] mx-auto flex flex-col justify-start items-center gap-4">
-    <div class="flex flex-row justify-between items-center w-full py-5 border-b-2 border-gray-700 h-[10%]">
-      <h1 class="text-4xl p-2 font-bold tracking-tighter cursor-pointer select-none rounded border-b-4 border-yellow-600 hover:border-yellow-800 hover:bg-gray-900 duration-500" (click)="resetSearch()">Info Movie</h1>
-      <input type="text" class="text-lg w-[50%] border border-gray-700 bg-gray-900 py-2 px-2 rounded" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Search Movies..."/>
-      <img alt="logo" src="/logo.png" class="h-14 rounded bg-gray-800"/>
+    <app-header (searchTriggered)="onSearchChange($event)"  class="flex flex-row justify-between items-center py-5 border-b-2 border-gray-700 w-full h-[10%]"></app-header>
+    <app-searched-list *ngIf="hasSearched()" [movies]="movies" class="h-[80%]"></app-searched-list>
+    <div *ngIf="!hasSearched()" class="font-light flex flex-row w-full gap-5 h-[40%]">
+      <app-trending class="flex flex-col w-[70%]"></app-trending>
+      <app-upcoming class="w-[30%] h-full overflow-auto"></app-upcoming>
     </div>
-    <div *ngIf="hasSearched" class="flex flex-row flex-wrap w-full h-full]">
-      <div *ngFor="let movie of movies" class="w-1/5 h-1/4 p-1">
-        <div class="flex flex-row justify-between bg-gray-900 border border-gray-700 rounded gap-1 w-full h-full">
-          <div class="flex justify-center items-center flex-shrink-0 w-24 overflow-hidden rounded-l h-full w-[40%]">
-            <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="w-full h-full object-cover"/>
-          </div>
-          <div class="flex flex-col justify-between items-end gap-4 p-2">
-            <h2 class="text-base font-semibold text-right ">{{ movie.title | slice:0:30 }}{{ movie.title.length > 30 ? '...' : '' }}</h2>
-            <div class="flex flex-col items-end gap-2">
-              <p *ngIf="isReleased(movie.release_date)" class="text-yellow-500 font-light">Released</p>
-              <p *ngIf="!isReleased(movie.release_date)" class="text-red-500 font-light">Coming Soon</p>
-              <button class="text-sm bg-gray-800 border border-yellow-700 py-1 px-2 rounded hover:bg-gray-900">View More</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div *ngIf="!hasSearched()" class="font-light w-full h-[40%]">
+      <app-top-rated></app-top-rated>
     </div>
-    <div *ngIf="!hasSearched && trending.length > 0 && upcoming.length > 0" class="font-light flex flex-row w-full gap-5 h-[40%]">
-      <div class="flex flex-col w-[70%] ">
-        <h1 class="text-3xl h-[10%] font-semibold">Trending Films</h1>
-          <div class="carousel h-[90%] rounded-box overflow-hidden">
-          <ng-container *ngFor="let movie of trending | slice:0:4; let i = index" class="">
-            <div id="slide{{ i + 1 }}" class="carousel-item relative w-full h-full">
-              <div class="flex justify-between w-full h-full mr-10 bg-gray-900 gap-4">
-                <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" class="w-1/3 h-full rounded-l"/>
-                <div class="flex flex-col justify-between w-2/3 pt-5 pr-10 text-right text-xl">
-                  <div clas="">
-                    <p class="text-3xl font-semibold">{{movie.title }}</p>
-                    <p class="">{{movie.overview }}</p>
-                    <p class="text-sm text-yellow-500 font-semibold">Released {{movie.release_date | date: 'dd/MM/yyyy' }}</p>
-                  </div>                 
-                  <div class="flex flex-row justify-between w-[40%] mx-auto pb-10">
-                    <p class="flex flex-row justify-end items-center gap-1">
-                      <svg class="w-5 h-5" fill="orange" viewBox="0 0 24 24">
-                        <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.172L12 18.896l-7.334 3.856 1.4-8.172L.132 9.21l8.2-1.192z" />
-                      </svg>
-                      {{movie.vote_average | number: '1.1-1' }}</p>
-                    <p class="">{{movie.vote_count }} Reviews</p>
-                  </div>
-                </div>
-                
-              </div>
-              <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                <a [href]="'#slide' + (i === 0 ? 4 : i)" class="bg-gray-900/70 text-white w-6 h-6 flex items-center justify-center rounded-full">❮</a>
-                <a [href]="'#slide' + (i === 3 ? 1 : i + 2)" class="btn btn-circle">❯</a>
-              </div>
-            </div>
-          </ng-container>
-        </div>
-      </div>
-      <div class="w-[30%] h-full overflow-auto">
-        <h1 class="text-3xl h-[10%] text-right font-semibold">Upcoming Films</h1>
-        <div class="flex flex-col gap-3 h-[90%]">
-          <div *ngFor="let movie of upcoming | slice:0:10" class="flex flex-row justify-between border border-gray-800 rounded bg-gray-900">
-            <div class="w-[25%]">
-              <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="h-40 object-cover rounded-l"/>
-            </div>
-            <div class="flex flex-col justify-center w-[75%] p-2 text-right">
-              <p class="text-2xl">{{movie.title}}</p>
-              <p class="text-yellow-500 font-semibold">Releases: {{movie.release_date | date: 'dd/MM/yyyy'}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="!hasSearched && topRated.length > 0" class="font-light w-full h-[40%]">
-      <h1 class="text-3xl h-[10%] font-semibold">Top Rated</h1>
-      <div class="grid grid-cols-8 gap-1 h-[90%] w-full">
-        <div *ngFor="let movie of topRated | slice:0:8" class="flex flex-col justify-start items-center bg-gray-900 rounded gap-1 h-full">
-          <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="h-[75%] w-full rounded-t"/>
-          <div class="flex flex-col h-[25%] justify-start ">
-            <p class="flex flex-row justify-center items-center gap-2">
-              <svg class="w-5 h-5" fill="orange" viewBox="0 0 24 24">
-                <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.172L12 18.896l-7.334 3.856 1.4-8.172L.132 9.21l8.2-1.192z" />
-              </svg>
-              {{movie.vote_average | number: '1.1-1' }}</p>
-            <h1 class="text-xl text-center">{{ movie.title }}</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-     <div class="absolute flex flex-row justify-center items-center border-t-2 border-gray-700 w-full bottom-0 h-[5%] font-light">
-      <p>Powered by <b>tmdb API</b> | Note: Best viewed in full screen mode on a PC</p>
-    </div>
+    <app-footer class="absolute flex flex-row justify-center items-center border-t-2 border-gray-700 w-full bottom-0 h-[5%] font-light"></app-footer>
   </div>
 </div>
