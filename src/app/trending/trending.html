@@ -11,19 +11,18 @@
             <p class="text-sm text-yellow-500 font-semibold">Released {{movie.release_date | date: 'dd/MM/yyyy' }}</p>
             </div>                 
             <div class="flex flex-row justify-between w-[40%] mx-auto pb-10">
-            <p class="flex flex-row justify-end items-center gap-1">
-                <svg class="w-5 h-5" fill="orange" viewBox="0 0 24 24">
+            <p class="flex flex-row justify-end items-center gap-1 text-lg">
+                <svg class="w-8 h-8" fill="orange" viewBox="0 0 24 24">
                 <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.172L12 18.896l-7.334 3.856 1.4-8.172L.132 9.21l8.2-1.192z" />
                 </svg>
-                {{movie.vote_average | number: '1.1-1' }}</p>
-            <p class="">{{movie.vote_count }} Reviews</p>
+                {{movie.vote_average | number: '1.1-1' }}/10</p>
+            <p class="text-lg">{{movie.vote_count }} Reviews</p>
             </div>
         </div>
-        
         </div>
         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-        <a [href]="'#slide' + (i === 0 ? 4 : i)" class="bg-gray-900/70 text-white w-6 h-6 flex items-center justify-center rounded-full">❮</a>
-        <a [href]="'#slide' + (i === 3 ? 1 : i + 2)" class="btn btn-circle">❯</a>
+            <a [href]="'#slide' + (i === 0 ? 4 : i)" class="bg-gray-900/70 text-white w-6 h-6 flex items-center justify-center rounded-full">❮</a>
+            <a [href]="'#slide' + (i === 3 ? 1 : i + 2)" class="btn btn-circle">❯</a>
         </div>
     </div>
     </ng-container>
