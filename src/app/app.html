@@ -5,15 +5,20 @@
       <input type="text" class="text-lg w-[50%] border border-gray-700 bg-gray-900 py-2 px-2 rounded" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Search movies..."/>
       <img alt="logo" src="/logo.png" class="h-14 rounded bg-gray-800"/>
     </div>
-    <div *ngIf="hasSearched" class="flex flex-row flex-wrap w-full">
-      <div *ngFor="let movie of movies" class="w-1/4 p-1">
-        <div class="flex flex-row justify-between bg-gray-900 border border-gray-700 p-1 rounded gap-1 w-full h-full">
-          <div class="flex justify-center items-center flex-shrink-0 w-24 overflow-hidden rounded border border-gray-700">
+    <div *ngIf="hasSearched" class="flex flex-row flex-wrap w-full h-full]">
+      <div *ngFor="let movie of movies" class="w-1/5 h-1/4 p-1">
+        <div class="flex flex-row justify-between bg-gray-900 border border-gray-700 rounded gap-1 w-full h-full">
+          <div class="flex justify-center items-center flex-shrink-0 w-24 overflow-hidden rounded border border-gray-700 h-full w-[40%]">
             <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="w-full h-full object-cover"/>
           </div>
           <div class="flex flex-col justify-between items-end gap-4 p-2">
-            <h2 class="text-sm font-semibold text-right ">{{ movie.title }}</h2>
-            <button class="text-sm bg-gray-800 border border-yellow-700 py-1 px-2 rounded hover:bg-gray-900">View</button>
+            <h2 class="text-base font-semibold text-right ">{{ movie.title | slice:0:30 }}{{ movie.title.length > 30 ? '...' : '' }}</h2>
+            <div class="flex flex-col items-end gap-2">
+              <p *ngIf="isReleased(movie.release_date)" class="text-yellow-500 font-light">Released</p>
+              <p *ngIf="!isReleased(movie.release_date)" class="text-red-500 font-light">Coming Soon</p>
+              <button class="text-sm bg-gray-800 border border-yellow-700 py-1 px-2 rounded hover:bg-gray-900">View More</button>
+            </div>
+            
           </div>
         </div>
       </div>

@@ -52,5 +52,12 @@ export class App {
       this.upcoming = data.results;
     });
   }
+
+  isReleased(releaseDateString: string): boolean {
+    if (!releaseDateString) return false;
+    const today = new Date();
+    const releaseDate = new Date(releaseDateString);
+    return releaseDate <= today;
+  }
 }
 
