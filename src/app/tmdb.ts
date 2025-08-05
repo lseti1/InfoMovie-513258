@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import { environment } from '../environments/environment.local'; // This is for local work
-import { environment } from '../environments/environment.prod'; // This is for deployment
+import { environment } from '../environments/environment.local'; // This is for local work
+// import { environment } from '../environments/environment.prod'; // This is for deployment
 
 const APIkey = environment.tmdbApiKey; 
 const BaseURL = 'https://api.themoviedb.org/3';
@@ -16,7 +16,7 @@ export class Tmdb {
   searchMovies(query: string): Observable<any> {
     return this.http.get(`${BaseURL}/search/movie`, {
       params: {
-        APIkey: APIkey,
+        api_key: APIkey,
         query: query
       }
     });
@@ -25,7 +25,7 @@ export class Tmdb {
   getMovieDetails(id: string): Observable<any> {
     return this.http.get(`${BaseURL}/movie/${id}`, {
       params: {
-        APIkey: APIkey
+        api_key: APIkey
       }
     });
   }
@@ -33,7 +33,7 @@ export class Tmdb {
   getTopRated(page = '1'): Observable<any> {
     return this.http.get(`${BaseURL}/movie/top_rated`, {
       params: { 
-        APIkey: APIkey, 
+        api_key: APIkey, 
         page 
       }
     });
@@ -42,7 +42,7 @@ export class Tmdb {
   getTrendingMovies(timeWindow: 'day' | 'week' = 'day'): Observable<any> {
     return this.http.get(`${BaseURL}/trending/movie/${timeWindow}`, {
       params: { 
-        APIkey: APIkey 
+        api_key: APIkey 
       }
     });
   }
@@ -50,7 +50,7 @@ export class Tmdb {
   getUpcomingMovies(page = '1'): Observable<any> {
   return this.http.get(`${BaseURL}/movie/upcoming`, {
     params: {
-      APIkey: APIkey,
+      api_key: APIkey,
     }
   });
 }
