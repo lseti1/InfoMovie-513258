@@ -11,12 +11,12 @@
             <p class="text-sm text-yellow-500 font-semibold">Released {{movie.release_date | date: 'dd/MM/yyyy' }}</p>
             </div>                 
             <div class="flex flex-row justify-between w-[40%] mx-auto pb-10">
-            <p class="flex flex-row justify-end items-center gap-1 text-lg">
-                <svg class="w-8 h-8" fill="orange" viewBox="0 0 24 24">
+            <p class="flex flex-row justify-end items-center gap-3 text-xl font-bold">
+                <svg class="w-7 h-7" fill="orange" viewBox="0 0 24 24">
                 <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.172L12 18.896l-7.334 3.856 1.4-8.172L.132 9.21l8.2-1.192z" />
                 </svg>
                 {{movie.vote_average | number: '1.1-1' }}/10</p>
-            <p class="text-lg">{{movie.vote_count }} Reviews</p>
+            <p class="text-xl font-bold">{{movie.vote_count }} Reviews</p>
             </div>
         </div>
         </div>
