@@ -32,6 +32,6 @@ export class Header {
     this.query = '';
     this.movies = [];
 
-    this.searchTriggered.emit({ hasSearched: true, movies: this.movies });
+    this.searchTriggered.emit({ hasSearched: false, movies: this.movies });
   }
 }
