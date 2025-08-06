@@ -19,10 +19,10 @@ export class SearchedList {
     return releaseDate <= today;
   }
 
-  @Output() showDetails = new EventEmitter<boolean>();
+  @Output() showDetails = new EventEmitter<{show:boolean, index: number}>();
 
-  onViewMoreClick() {
-    console.log("'True' Emitted");
-    this.showDetails.emit(true);
+  onViewMoreClick(index: number) {
+    console.log("'True' Emitted & sending index value: ", index);
+    this.showDetails.emit({show: true, index: index});
   }
 }

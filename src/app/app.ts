@@ -23,6 +23,8 @@ export class App {
   hasSearched = signal(false);
   movies: any[] = [];
   displayDetails = signal(false);
+  displayIndex = signal(-1);
+  selectedMovieId: any = null;
 
   constructor(private tmdb: Tmdb) { }
 
@@ -32,9 +34,17 @@ export class App {
     this.displayDetails.set(false);
   }
 
-  toggleDetails(show: boolean) {
-    console.log("show value: ", show);
-    this.displayDetails.set(show);
+  toggleDetails(event: {show: boolean, index: number}) {
+    console.log("Showing Display Details: ", event.show);
+    console.log("Showing Display Details for Index: ", event.index);
+    this.displayDetails.set(event.show);
+    this.displayIndex.set(event.index);
+
+    if (event.show && this.movies[event.index]) {
+      this.selectedMovieId = this.movies[event.index].id;
+    } else {
+      this.selectedMovieId = null;
+    }
   }
 }
 

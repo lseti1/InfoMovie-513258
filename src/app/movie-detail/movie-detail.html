@@ -1,5 +1,45 @@
-<div class="bg-gray-900 w-full h-full">
-    <div *ngFor="let movie of trendingMovies | slice:0:1" class="flex flex-row justify-start items-center bg-gray-900 rounded gap-1 h-full w-full">
+<div *ngIf="selectedMovie" class="bg-gray-900 w-full h-full">
+    <div class="flex flex-row justify-start items-center bg-gray-900 rounded gap-1 h-full w-full">
+        <div class="flex justify-center items-center flex-shrink-0 w-24 overflow-hidden rounded-l h-full w-[40%]">
+            <img [src]="'https://image.tmdb.org/t/p/original' + selectedMovie.poster_path" alt="{{ selectedMovie.title }}" class="w-full h-full object-cover" />
+        </div>
+        <div class="flex flex-col justify-start items-start h-full w-[60%] p-4 text-lg gap-8">
+            <div class="flex flex-col gap-4">
+                <h1 class="text-6xl font-semibold">{{selectedMovie.title}}</h1>
+                <ul class="flex flex-row justify-start items-center w-full gap-10 text-gray-300">
+                    <li>{{selectedMovie.release_date | date: "YYYY" }}</li>
+                    <li class="flex flex-row justify-end items-center gap-4">
+                        <svg class="w-5 h-5" fill="orange" viewBox="0 0 24 24">
+                        <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.172L12 18.896l-7.334 3.856 1.4-8.172L.132 9.21l8.2-1.192z" />
+                        </svg>
+                        {{selectedMovie.vote_average | number: '1.1-1' }}/10</li>
+                    <li class="">{{selectedMovie.vote_count }} Reviews</li>
+                </ul>
+            </div>
+            <p class="">{{selectedMovie.overview}}</p>
+            <div class="flex flex-row gap-4">
+                <p *ngFor="let genre of selectedMovie.genres" class="rounded-lg bg-gray-700 border border-gray-400 p-2">{{ genre.name }}</p>
+            </div>
+            <div class="grid grid-rows-3 text-base gap-4 w-full">
+                <div class="flex flex-row border-y border-gray-500 py-4 bg-gray-800 px-2 gap-4">
+                    <h1 class="font-semibold">Directors:</h1>
+                    <p *ngFor="let director of directors">{{director.name}}</p>
+                </div>
+                <div class="flex flex-row border-y border-gray-500 py-4 bg-gray-800 px-2 gap-4">
+                    <h1 class="font-semibold">Writers:</h1>
+                    <p *ngFor="let writer of writers">{{writer.name}}</p>
+                </div>
+                <div class="flex flex-row justify-start border-y border-gray-500 py-4 bg-gray-800 px-2 gap-4">
+                    <h1 class="font-semibold">Starring:</h1>
+                    <p *ngFor="let actor of cast | slice:0:6" class="text-center">{{actor.name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+<div *ngFor="let movie of trendingMovies | slice:0:1" >
         <div class="flex justify-center items-center flex-shrink-0 w-24 overflow-hidden rounded-l h-full w-[40%]">
             <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="{{ movie.title }}" class="w-full h-full object-cover" />
         </div>
@@ -31,6 +71,4 @@
             </div>
         </div>
     </div>
-    
-</div>
-
+ -->
