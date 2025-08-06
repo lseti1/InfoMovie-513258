@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tmdb } from '../tmdb';
 import { CommonModule } from '@angular/common';
 
@@ -17,5 +17,12 @@ export class SearchedList {
     const today = new Date();
     const releaseDate = new Date(releaseDateString);
     return releaseDate <= today;
+  }
+
+  @Output() showDetails = new EventEmitter<boolean>();
+
+  onViewMoreClick() {
+    console.log("'True' Emitted");
+    this.showDetails.emit(true);
   }
 }

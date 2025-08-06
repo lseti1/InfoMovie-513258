@@ -1,7 +1,8 @@
 <div class="bg-black text-white h-screen tracking-tighter">
   <div class="relative h-full w-[70%] mx-auto flex flex-col justify-start items-center gap-4">
     <app-header (searchTriggered)="onSearchChange($event)"  class="flex flex-row justify-between items-center py-5 border-b-2 border-gray-700 w-full h-[10%]"></app-header>
-    <app-searched-list *ngIf="hasSearched()" [movies]="movies" class="h-[80%]"></app-searched-list>
+    <app-searched-list *ngIf="hasSearched() && !displayDetails()" (showDetails)="toggleDetails($event)" [movies]="movies" class="w-full h-[80%]"></app-searched-list>
+    <app-movie-detail *ngIf="displayDetails() && hasSearched()" class="w-full h-[80%]"></app-movie-detail>
     <div *ngIf="!hasSearched()" class="font-light flex flex-row w-full gap-5 h-[40%]">
       <app-trending class="flex flex-col w-[70%]"></app-trending>
       <app-upcoming class="w-[30%] h-full overflow-auto"></app-upcoming>
