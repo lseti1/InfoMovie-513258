@@ -1,7 +1,7 @@
 <h1 class="text-3xl h-[10%] font-semibold">Trending Films</h1>
 <div class="carousel h-[90%] rounded-box overflow-hidden">
-    <ng-container *ngFor="let movie of trending | slice:0:4; let i = index" class="">
-        <div id="slide{{ i + 1 }}" class="carousel-item relative w-full h-full">
+    @for (movie of trending; track movie.id) {
+        <div id="slide{{ $index + 1 }}" class="carousel-item relative w-full h-full">
             <div class="flex justify-between w-full h-full mr-10 bg-gray-900 gap-4">
                 <img [src]="'https://image.tmdb.org/t/p/original' + movie.poster_path"
                     class="w-[25%] h-full rounded-l" />
@@ -23,10 +23,10 @@
                 </div>
             </div>
             <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                <a [href]="'#slide' + (i === 0 ? 4 : i)"
+                <a [href]="'#slide' + ($index === 0 ? 4 : $index)"
                     class="bg-gray-900/70 text-white w-6 h-6 flex items-center justify-center rounded-full">❮</a>
-                <a [href]="'#slide' + (i === 3 ? 1 : i + 2)" class="btn btn-circle">❯</a>
+                <a [href]="'#slide' + ($index === 3 ? 1 : $index + 2)" class="btn btn-circle">❯</a>
             </div>
         </div>
-    </ng-container>
+    }
 </div>
