@@ -1,4 +1,5 @@
-<div *ngIf="selectedMovie" class="bg-gray-900 w-full h-full">
+@if (selectedMovie) {
+<div class="bg-gray-900 w-full h-full">
     <div class="flex flex-row justify-start items-center bg-gray-900 rounded gap-1 h-full w-full">
         <div class="flex justify-center items-center flex-shrink-0 w-24 overflow-hidden rounded-l h-full w-[40%]">
             <a href="{{selectedMovie.homepage}}" target="_blank" rel="noopener noreferrer" title="{{ selectedMovie.title }} Poster">
@@ -12,9 +13,11 @@
                     <li>{{selectedMovie.release_date | date: "YYYY" }}</li>
                     <li class="flex flex-row justify-end items-center gap-2">
                         <svg class="w-5 h-5" fill="orange" viewBox="0 0 24 24">
-                        <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.172L12 18.896l-7.334 3.856 1.4-8.172L.132 9.21l8.2-1.192z" />
+                            <path
+                                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.172L12 18.896l-7.334 3.856 1.4-8.172L.132 9.21l8.2-1.192z" />
                         </svg>
-                        {{selectedMovie.vote_average | number: '1.1-1' }}/10</li>
+                        {{selectedMovie.vote_average | number: '1.1-1' }}/10
+                    </li>
                     <li class="">{{selectedMovie.vote_count }} Reviews</li>
                 </ul>
             </div>
@@ -24,26 +27,39 @@
             </div>
             <p class="text-gray-400">Runtime: {{selectedMovie.runtime}} minutes</p>
             <div class="flex flex-row gap-4">
-                <p *ngFor="let genre of selectedMovie.genres" class="rounded-lg bg-gray-700 border border-gray-400 p-2">{{ genre.name }}</p>
+                @for (genre of selectedMovie.genres; track genre.id) {
+                    <p class="rounded-lg bg-gray-700 border border-gray-400 p-2">{{ genre.name }}</p>
+                }
             </div>
             <div class="grid grid-rows-3 text-base gap-4 w-full">
                 <div class="flex flex-row border-y border-gray-500 py-4 bg-gray-800 px-2 gap-4">
                     <h1 class="font-semibold">Directors:</h1>
-                    <p *ngFor="let director of directors | slice:0:6">{{director.name}}</p>
+                    @for (director of directors.slice(0, 6); track director.id) {
+                        <p>{{director.name}}</p>
+                    }
                 </div>
                 <div class="flex flex-row border-y border-gray-500 py-4 bg-gray-800 px-2 gap-4">
                     <h1 class="font-semibold">Writers:</h1>
-                    <p *ngFor="let writer of writers | slice:0:6">{{writer.name}}</p>
+                    @for (writer of writers.slice(0, 6); track writer.id) {
+                        <p>{{writer.name}}</p>
+                    }
                 </div>
                 <div class="flex flex-row justify-start border-y border-gray-500 py-4 bg-gray-800 px-2 gap-4">
                     <h1 class="font-semibold">Starring:</h1>
-                    <p *ngFor="let actor of cast | slice:0:6" class="text-center">{{actor.name}}</p>
+                    @for (actor of cast.slice(0, 6); track actor.id) {
+                        <p class="text-center">{{actor.name}}</p>
+                    }
                 </div>
             </div>
-            <div *ngIf="selectedMovie?.production_companies?.length" class="flex flex-col justify-center items-center w-full text-base">
+            @if (selectedMovie?.production_companies?.length) {
+            <div class="flex flex-row justify-center items-center w-full text-base gap-4">
                 <p class="font-bold text-gray-400">Production</p>
-                <p *ngFor="let company of selectedMovie.production_companies">{{company.name}}</p>
+                @for (company of selectedMovie.production_companies; track company.id) {
+                    <p>{{company.name}}</p>
+                }
             </div>
+            }
         </div>
     </div>
 </div>
+}
