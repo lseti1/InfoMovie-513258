@@ -28,5 +28,7 @@
                 <a [href]="'#slide' + ($index === 3 ? 1 : $index + 2)" class="btn btn-circle">❯</a>
             </div>
         </div>
+    } @empty {
+        <p>No Information Available for Trending Films</p>
     }
 </div>

@@ -29,6 +29,8 @@
             <div class="flex flex-row gap-4">
                 @for (genre of selectedMovie.genres; track genre.id) {
                     <p class="rounded-lg bg-gray-700 border border-gray-400 p-2">{{ genre.name }}</p>
+                } @empty {
+                    <p class="rounded-lg bg-gray-700 border border-gray-400 p-2">No Genres have been set for this film</p>
                 }
             </div>
             <div class="grid grid-rows-3 text-base gap-4 w-full">
@@ -36,18 +38,24 @@
                     <h1 class="font-semibold">Directors:</h1>
                     @for (director of directors.slice(0, 6); track director.id) {
                         <p>{{director.name}}</p>
+                    } @empty {
+                        <p>No Directors have been set for this film</p>
                     }
                 </div>
                 <div class="flex flex-row border-y border-gray-500 py-4 bg-gray-800 px-2 gap-4">
                     <h1 class="font-semibold">Writers:</h1>
                     @for (writer of writers.slice(0, 6); track writer.id) {
                         <p>{{writer.name}}</p>
+                    } @empty {
+                        <p>No writers have been set for this film</p>
                     }
                 </div>
                 <div class="flex flex-row justify-start border-y border-gray-500 py-4 bg-gray-800 px-2 gap-4">
                     <h1 class="font-semibold">Starring:</h1>
                     @for (actor of cast.slice(0, 6); track actor.id) {
                         <p class="text-center">{{actor.name}}</p>
+                    } @empty {
+                        <p>No Actors have been set for this film</p>
                     }
                 </div>
             </div>
@@ -56,6 +64,8 @@
                 <p class="font-bold text-gray-400">Production</p>
                 @for (company of selectedMovie.production_companies; track company.id) {
                     <p>{{company.name}}</p>
+                } @empty {
+                    <p>No company associated with this film currently</p>
                 }
             </div>
             }

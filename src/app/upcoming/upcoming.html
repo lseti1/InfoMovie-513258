@@ -11,5 +11,7 @@
             <p class="text-yellow-500 font-semibold">Releases: {{movie.release_date | date: 'dd/MM/yyyy'}}</p>
         </div>
     </div>
+    } @empty {
+        <p>No Information Available for Upcoming Films</p>
     }
 </div>
