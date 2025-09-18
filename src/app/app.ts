@@ -20,21 +20,23 @@ import { MovieDetail } from './movie-detail/movie-detail';
 export class App {
   protected readonly title = signal('angularApp');
 
-  hasSearched = signal(false);
-  movies: any[] = [];
-  displayDetails = signal(false);
-  displayIndex = signal(-1);
-  selectedMovieId: any = null;
+  public hasSearched = signal(false);
+  public movies: any[] = [];
+  public displayDetails = signal(false);
+  private displayIndex = signal(-1);
+  public selectedMovieId: any = null;
 
-  constructor(private tmdb: Tmdb) { }
+  constructor(
+    private tmdb: Tmdb
+  ) {}
 
-  onSearchChange(event: { hasSearched: boolean, movies: any[] }) {
+  onSearchChange(event: {hasSearched: boolean, movies: any[]}): void {
     this.hasSearched.set(event.hasSearched);
     this.movies = event.movies;
     this.displayDetails.set(false);
   }
 
-  toggleDetails(event: {show: boolean, index: number}) {
+  toggleDetails(event: {show: boolean, index: number}): void {
     console.log("Showing Display Details: ", event.show);
     console.log("Showing Display Details for Index: ", event.index);
     this.displayDetails.set(event.show);

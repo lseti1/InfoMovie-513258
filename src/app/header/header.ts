@@ -10,15 +10,17 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./header.css']
 })
 export class Header {
-  query = '';
-  hasSearched = false;
-  movies: any[] = [];
-
-  constructor(private tmdb: Tmdb) { }
-
   @Output() searchTriggered = new EventEmitter<{ hasSearched: boolean, movies: any[] }>();
 
-  search() {
+  public query = '';
+  private hasSearched = false;
+  private movies: any[] = [];
+
+  constructor(
+    private tmdb: Tmdb
+  ) {}
+
+  search(): void {
     if (!this.query.trim()) return;
 
     this.tmdb.searchMovies(this.query).subscribe((response) => {
@@ -27,7 +29,7 @@ export class Header {
     })
   }
 
-  resetSearch() {
+  resetSearch(): void {
     this.hasSearched = false;
     this.query = '';
     this.movies = [];

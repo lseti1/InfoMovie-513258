@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Tmdb } from '../tmdb';
 import { CommonModule } from '@angular/common';
 
@@ -8,10 +8,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './upcoming.html',
   styleUrl: './upcoming.css'
 })
-export class Upcoming {
+export class Upcoming implements OnInit {
+  public upcoming: any[] = [];
 
-  upcoming: any[] = [];
-  constructor(private tmdb: Tmdb) { }
+  constructor(
+    private tmdb: Tmdb
+  ) {}
 
   ngOnInit(): void {
     this.tmdb.getUpcomingMovies().subscribe(data => {

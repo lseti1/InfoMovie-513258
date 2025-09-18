@@ -10,7 +10,11 @@ import { CommonModule } from '@angular/common';
 })
 export class SearchedList {
   @Input() movies: any[] = [];
-  constructor(private tmdb: Tmdb) { }
+  @Output() showDetails = new EventEmitter<{show:boolean, index: number}>();
+
+  constructor(
+    private tmdb: Tmdb
+  ) {}
 
   isReleased(releaseDateString: string): boolean {
     if (!releaseDateString) return false;
@@ -19,9 +23,7 @@ export class SearchedList {
     return releaseDate <= today;
   }
 
-  @Output() showDetails = new EventEmitter<{show:boolean, index: number}>();
-
-  onViewMoreClick(index: number) {
+  onViewMoreClick(index: number): void {
     console.log("'True' Emitted & sending index value: ", index);
     this.showDetails.emit({show: true, index: index});
   }

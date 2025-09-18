@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import { environment } from '../environments/environment.local'; // This is for local work
-import { environment } from '../environments/environment.prod'; // This is for deployment
+import { environment } from '../environments/environment.local'; // This is for local work
+// import { environment } from '../environments/environment.prod'; // This is for deployment
 
 const APIkey = environment.tmdbApiKey;
 const BaseURL = 'https://api.themoviedb.org/3';

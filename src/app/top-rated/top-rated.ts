@@ -9,8 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./top-rated.css']
 })
 export class TopRated implements OnInit {
-  topRated: any[] = [];
-  constructor(private tmdb: Tmdb) { }
+  public topRated: any[] = [];
+  constructor(
+    private tmdb: Tmdb
+  ) {}
 
   ngOnInit(): void {
     this.tmdb.getTopRated().subscribe(data => {
